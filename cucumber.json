@@ -1,0 +1,9 @@
+{
+  "default": {
+    "require":       ["src/bdd/stepDefinitions/**/*.ts"],
+    "paths":         ["features/**/*.feature"],
+    "format":        ["progress-bar", "html:test-results/cucumber-report.html"],
+    "requireModule": ["ts-node/register"],
+    "timeout":       30000
+  }
+}

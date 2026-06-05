@@ -1,0 +1,34 @@
+[
+  {
+    "testId":   "DD-001",
+    "scenario": "valid customer login",
+    "email":    "customer@practicesoftwaretesting.com",
+    "password": "welcome01",
+    "expected": "success",
+    "priority": "p0"
+  },
+  {
+    "testId":   "DD-002",
+    "scenario": "wrong password",
+    "email":    "customer@practicesoftwaretesting.com",
+    "password": "wrongpassword",
+    "expected": "error",
+    "priority": "p1"
+  },
+  {
+    "testId":   "DD-003",
+    "scenario": "empty email field",
+    "email":    "",
+    "password": "welcome01",
+    "expected": "error",
+    "priority": "p1"
+  },
+  {
+    "testId":   "DD-004",
+    "scenario": "invalid email format",
+    "email":    "notanemail",
+    "password": "welcome01",
+    "expected": "error",
+    "priority": "p2"
+  }
+]

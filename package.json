@@ -1,0 +1,41 @@
+{
+  "name": "aitest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test tests/ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:bdd": "cucumber-js",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.9.0",
+    "@playwright/experimental-ct-react": "^1.60.0",
+    "@types/node": "^25.9.1",
+    "playwright-bdd": "^8.5.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.99.0",
+    "@playwright/test": "^1.60.0",
+    "allure-playwright": "^3.9.0",
+    "dotenv": "^17.4.2",
+    "groq-sdk": "^1.2.1",
+    "openai": "^6.39.0",
+    "uuid": "^14.0.0",
+    "winston": "^3.19.0",
+    "zod": "^4.4.3"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}
