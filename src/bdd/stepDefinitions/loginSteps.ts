@@ -2,16 +2,13 @@ import { setDefaultTimeout, Given, When, Then, Before, After } from '@cucumber/c
 import { chromium, Browser, Page, expect } from '@playwright/test';
 import { LoginPage } from '../../playwright/LoginPage';
 
-// ── Set timeout for ALL hooks and steps to 30 seconds ──
-// This MUST be at the top, before any hooks
-setDefaultTimeout(30 * 1000);
+// Increase timeout for CI — CI servers are slower than localhost
+setDefaultTimeout(60 * 1000);
 
-// ── Shared state ────────────────────────────────────────
 let browser:   Browser;
 let page:      Page;
 let loginPage: LoginPage;
 
-// ── Before each scenario ────────────────────────────────
 Before(async () => {
   browser   = await chromium.launch({ headless: true });
   const ctx = await browser.newContext();
@@ -19,17 +16,14 @@ Before(async () => {
   loginPage = new LoginPage(page);
 });
 
-// ── After each scenario — always close browser ──────────
 After(async () => {
   await browser.close();
 });
 
-// ── GIVEN ───────────────────────────────────────────────
 Given('I am on the login page', async () => {
   await loginPage.navigate();
 });
 
-// ── WHEN ────────────────────────────────────────────────
 When('I enter email {string}', async (email: string) => {
   await page.getByPlaceholder('Your email').fill(email);
 });
@@ -40,16 +34,16 @@ When('I enter password {string}', async (password: string) => {
 
 When('I click the Login button', async () => {
   await page.getByRole('button', { name: 'Login' }).click();
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(5000);
 });
 
-// ── THEN ────────────────────────────────────────────────
 Then('I should be redirected to the account page', async () => {
   const url = page.url();
   console.log('  → URL after login:', url);
+  // Works for both customer (/account) and admin (/admin/dashboard)
   expect(
     !url.includes('login') && !url.includes('auth'),
-    `Expected redirect away from login page. Got: ${url}`,
+    `Expected redirect away from login. Got: ${url}`,
   ).toBeTruthy();
 });
 
@@ -59,14 +53,9 @@ Then('I should see an error message', async () => {
   const errorShown  = await page
     .locator('.alert, .alert-danger, [class*="alert"]')
     .first().isVisible().catch(() => false);
-
-  console.log('  → URL:', url);
-  console.log('  → Error visible:', errorShown);
-  console.log('  → Still on login:', onLoginPage);
-
   expect(
     errorShown || onLoginPage,
-    'Expected error message or to stay on login page',
+    'Expected error or stay on login page',
   ).toBeTruthy();
 });
 
