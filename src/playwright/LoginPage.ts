@@ -27,7 +27,7 @@ export class LoginPage extends BasePage {
     await this.loginButton.click();
     await Promise.race([
       // Works for both customer (/account) and admin (/admin/dashboard)
-      this.page.waitForURL(url => !url.includes('login'), { timeout: 15000 }),
+    this.page.waitForURL(url => !url.toString().includes('login'), { timeout: 15000 }),
       this.page.waitForSelector('.alert', { timeout: 15000 }),
     ]).catch(() => logger.warn('[LoginPage] No redirect or alert detected'));
   }
